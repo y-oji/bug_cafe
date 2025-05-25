@@ -20,6 +20,13 @@ def take_order(menus)
   end
   print '>'
   order_number = gets.to_i
+  
+  # メニューにない番号が注文された時、
+  if order_number < 1 || order_number > menus.size
+    puts 'メニューがありません。もう一度、入力してください。'
+    return take_order(menus)
+  end
+
   order_index = order_number - 1
   puts "#{menus[order_index][:name]}(#{menus[order_index][:price]}円)ですね。"
   order_index
