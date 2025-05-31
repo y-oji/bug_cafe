@@ -22,7 +22,7 @@ def take_order(menus)
   order_number = gets.to_i
   
   # メニューにない番号が注文された時の処理
-  if order_number < 1 || order_number > menus.size
+  unless menus[order_number - 1]
     puts 'メニューがありません。もう一度、入力してください。'
     return take_order(menus)
   end
