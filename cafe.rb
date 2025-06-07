@@ -22,12 +22,14 @@ def take_order(menus)
   order_number = gets.to_i
   
   # メニューにない番号が注文された時の処理
-  unless menus[order_number - 1]
+  order_index = order_number - 1
+  order = order_number > 0 && menus[order_index]
+  unless order
     puts 'メニューがありません。もう一度、入力してください。'
     return take_order(menus)
   end
 
-  order_index = order_number - 1
+  # 通常の処理
   puts "#{menus[order_index][:name]}(#{menus[order_index][:price]}円)ですね。"
   order_index
 end
