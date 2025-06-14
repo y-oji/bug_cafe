@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 DRINKS = [
-  { name: 'コーヒー', price: '300' },
-  { name: 'カフェラテ', price: '400' },
-  { name: 'チャイ', price: '460' },
-  { name: 'エスプレッソ', price: '340' },
-  { name: '緑茶', price: '450' }
+  { name: 'コーヒー', price: 300 },
+  { name: 'カフェラテ', price: 400 },
+  { name: 'チャイ', price: 460 },
+  { name: 'エスプレッソ', price: 340 },
+  { name: '緑茶', price: 450 }
 ].freeze
 
 FOODS = [
-  { name: 'チーズケーキ', price: '470' },
-  { name: 'アップルパイ', price: '520' },
-  { name: 'ホットサンド', price: '410' }
+  { name: 'チーズケーキ', price: 470 },
+  { name: 'アップルパイ', price: 520 },
+  { name: 'ホットサンド', price: 410 }
 ].freeze
 
 def take_order(menus)
@@ -20,8 +20,18 @@ def take_order(menus)
   end
   print '>'
   order_number = gets.to_i
-  puts "#{menus[order_number][:name]}(#{menus[order_number][:price]}円)ですね。"
-  order_number
+  
+  # メニューにない番号が注文された時の処理
+  order_index = order_number - 1
+  order = order_number > 0 && menus[order_index]
+  unless order
+    puts 'メニューがありません。もう一度、入力してください。'
+    return take_order(menus)
+  end
+
+  # 通常の処理
+  puts "#{menus[order_index][:name]}(#{menus[order_index][:price]}円)ですね。"
+  order_index
 end
 
 puts 'bugカフェへようこそ！ご注文は？ 番号でどうぞ'
@@ -30,5 +40,5 @@ order1 = take_order(DRINKS)
 puts 'フードメニューはいかがですか?'
 order2 = take_order(FOODS)
 
-total = FOODS[order1][:price] + DRINKS[order2][:price]
+total = DRINKS[order1][:price] + FOODS[order2][:price]
 puts "お会計は#{total}円になります。ありがとうございました！"
